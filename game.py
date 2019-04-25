@@ -48,6 +48,8 @@ class Game():
         self.isStarted = False
         message = {"action": "gameend"}
         self.sendall(message)
+        for p in self.players:
+            p.game = None
 
     def update(self):
         message = {"action": "update"}
