@@ -64,7 +64,7 @@ if __name__ == "__main__":
     while True: 
         c, addr = s.accept() 
         c.setblocking(0)
-        c.settimeout(120)
+        c.settimeout(360)
         print('Connected to :', addr[0], ':', addr[1]) 
         _thread.start_new_thread(client_thread, (c,))
 
