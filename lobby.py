@@ -8,13 +8,22 @@ class Lobby():
 
     def join(self, player):
         self.players.append(player)
+        self.updatePlayerList()
+
+    def disjoin(self, player):
+        self.players.remove(player)
+        self.updatePlayerList()
+
+    def updatePlayerList(self):
+        players_nicknames = []
+        for p in self.players:
+            players_nicknames.append(p.nickname) 
+        message = {"action": "playerlist", "players": players_nicknames}
+        self.sendall(message)
 
     def sendall(self, message):
         for player in self.players:
             player.send(message)
-
-    def disjoin(self, player):
-        self.players.remove(player)
 
     def appendGame(self, game):
         self.games.append(game)
