@@ -1,10 +1,11 @@
 import game
-
 class Lobby():
-    players = []
-    games = []
-    gameCount = 0
-    
+    def __init__(self):
+        self.players = []
+        self.playerIndex = 0
+        self.games = []
+        self.gameIndex = 0
+
     def join(self, player):
         self.players.append(player)
 
@@ -17,7 +18,7 @@ class Lobby():
 
     def appendGame(self, game):
         self.games.append(game)
-        self.gameCount += 1
+        self.gameIndex += 1
         game_ids = []
         for game in self.games:
             game_ids.append(game.id) 

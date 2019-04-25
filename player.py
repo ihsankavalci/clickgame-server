@@ -2,9 +2,10 @@ import room
 import game
 import json
 class Player():
-    def __init__(self, socket, id, lobby):
+    def __init__(self, socket, lobby):
         self.socket = socket
-        self.id = id
+        self.id = lobby.playerIndex
+        lobby.playerIndex += 1
         self.lobby = lobby
         self.game = None
         
@@ -27,7 +28,7 @@ class Player():
         del self
 
     def createGame(self):
-        g = game.Game(self.lobby.gameCount)
+        g = game.Game(self.lobby.gameIndex)
         g.join(self)
         self.lobby.appendGame(g)
     

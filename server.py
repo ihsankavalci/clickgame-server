@@ -6,12 +6,11 @@ import json
 import player
 from lobby import Lobby
 
-count = 0
 lobby = Lobby()
 
 def client_thread(c):
     print(c)
-    p = player.Player(c, count, lobby)
+    p = player.Player(c, lobby)
     lobby.join(p)
     while True: 
         try:
