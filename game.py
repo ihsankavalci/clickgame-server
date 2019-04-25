@@ -37,8 +37,23 @@ class Game():
                 player.score += 1
                 self.update()
                 return
+    
+    def getScores(self):
+        scores = []
+        for p in self.players:
+            scores.append({p.nickname: p.score})
+        return scores
+
+    def gameEnd(self):
+        self.isStarted = False
+        message = {"action": "gameend"}
+        self.sendall(message)
+
     def update(self):
         message = {"action": "update"}
         message["boxes"] = self.boxes
+        message["scores"] = self.getScores()
         self.sendall(message)
+        if (len(self.boxes) == 0):
+            self.gameEnd()
         
