@@ -1,15 +1,19 @@
 import game
+import threading
 class Lobby():
     def __init__(self):
         self.players = []
         self.playerIndex = 0
         self.games = []
         self.gameIndex = 0
+        self.lock = threading.RLock()
 
     def join(self, player):
+        self.lock.acquire()
         self.players.append(player)
         self.updatePlayerList()
         self.sendGamesList(player)
+        self.lock.release()
 
     def disjoin(self, player):
         self.players.remove(player)
