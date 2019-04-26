@@ -1,4 +1,3 @@
-import room
 import game
 import json
 class Player():
@@ -22,7 +21,7 @@ class Player():
         self.socket.send(message.encode('ascii'))
 
     def sendChat(self, msg):
-        message = '{"action": "chat", "msg": "%s: %s"}' % (self.nickname, msg)
+        message = {"action": "chat", "msg": "%s -  %s" % (self.nickname, msg)}
         self.lobby.sendall(message)
     
     def disconnect(self):
