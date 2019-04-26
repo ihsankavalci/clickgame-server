@@ -9,6 +9,7 @@ class Lobby():
     def join(self, player):
         self.players.append(player)
         self.updatePlayerList()
+        self.sendGamesList(player)
 
     def disjoin(self, player):
         self.players.remove(player)
@@ -24,6 +25,13 @@ class Lobby():
     def sendall(self, message):
         for player in self.players:
             player.send(message)
+
+    def sendGamesList(self, player):
+        game_ids = []
+        for game in self.games:
+            game_ids.append(game.id) 
+        message = {"action": "gameslist", "games": game_ids}
+        player.send(message)
 
     def appendGame(self, game):
         self.games.append(game)

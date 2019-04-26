@@ -11,6 +11,9 @@ class Game():
         player.score = 0
         self.players.append(player)
         player.game = self
+        message = {"action": "gamejoined"}
+        player.send(message)
+        
     def createBoxes(self):
         for i in range(10):
             self.boxes.append({"x": random.randint(0, 640), "y": random.randint(0, 640)})
