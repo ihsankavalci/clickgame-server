@@ -13,7 +13,13 @@ class Lobby():
 
     def disjoin(self, player):
         self.players.remove(player)
+        if player.game != None:
+            player.game.playerQuit(player)
         self.updatePlayerList()
+
+    def removeGame(self, game):
+        self.games.remove(game)
+        del game
 
     def updatePlayerList(self):
         players_nicknames = []

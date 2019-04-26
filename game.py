@@ -1,21 +1,24 @@
 import random
 
 class Game():
-    boxes = []
-    players = []
-    isStarted = False
-    def __init__(self, id):
+    def __init__(self, id, player):
+        self.boxes = []
+        self.players = []
+        self.isStarted = False
         self.id = id
+        self.join(player)
+        self.owner = player
         self.createBoxes()
+
     def join(self, player):
         player.score = 0
         self.players.append(player)
         player.game = self
         message = {"action": "gamejoined"}
         player.send(message)
-        
+
     def createBoxes(self):
-        for i in range(10):
+        for i in range(5):
             self.boxes.append({"x": random.randint(0, 640), "y": random.randint(0, 640)})
 
     def start(self):
@@ -47,13 +50,20 @@ class Game():
             scores.append({p.nickname: p.score})
         return scores
 
+    def playerQuit(self, player):
+        if self.owner == player:
+            self.gameEnd()
+            player.lobby.removeGame(self)
+        else:
+            self.players.remove(player)
+
     def gameEnd(self):
         self.isStarted = False
         message = {"action": "gameend"}
         self.sendall(message)
         for p in self.players:
             p.game = None
-
+        
     def update(self):
         message = {"action": "update"}
         message["boxes"] = self.boxes

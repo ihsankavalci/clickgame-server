@@ -41,7 +41,7 @@ def client_thread(c):
                 try:
                     p.game
                     if (p.game.isStarted):
-                        p.game.click(x, y)
+                        p.game.click(message["x"], message["y"])
                 except:
                     p.send("nogame")
             elif (message["action"] == "chat"):

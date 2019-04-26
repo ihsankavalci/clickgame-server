@@ -33,8 +33,7 @@ class Player():
         del self
 
     def createGame(self):
-        g = game.Game(self.lobby.gameIndex)
-        g.join(self)
+        g = game.Game(self.lobby.gameIndex, self)
         self.lobby.appendGame(g)
     
     def joinGame(self, gameid):
