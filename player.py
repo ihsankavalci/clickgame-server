@@ -12,8 +12,6 @@ class Player():
     def setNickname(self, nickname):
         self.nickname = nickname
         self.lobby.updatePlayerList()
-        # message = {"action": "playerconnected", "nickname": nickname}
-        # self.lobby.sendall(message)
 
     def send(self, message):
         if type(message) is dict:

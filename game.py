@@ -18,7 +18,7 @@ class Game():
         player.send(message)
 
     def createBoxes(self):
-        for i in range(10):
+        for i in range(20):
             self.boxes.append({"x": random.randint(0, 640), "y": random.randint(0, 640)})
 
     def start(self):
@@ -33,17 +33,16 @@ class Game():
 
     def checkBox(self, boxx, boxy, x, y):
         boxsize = 30
-        if (x > boxx - boxsize) and (x < boxx + boxsize) and (y > boxy - boxsize) and (y < boxy + boxsize):
-            return True
+        return (x > boxx - boxsize) and (x < boxx + boxsize) and (y > boxy - boxsize) and (y < boxy + boxsize)
     
     def click(self, player, x, y):
         for box in self.boxes:
             if self.checkBox(box["x"], box["y"], x, y):
                 self.boxes.remove(box)
                 player.score += 1
-                self.update()
-                return
-    
+                break
+        self.update()
+
     def getScores(self):
         scores = []
         for p in self.players:
@@ -52,8 +51,7 @@ class Game():
 
     def playerQuit(self, player):
         if self.owner == player:
-            self.gameEnd()
-            player.lobby.removeGame(self)
+            self.gameEnd()        
         else:
             self.players.remove(player)
 
@@ -63,6 +61,7 @@ class Game():
         self.sendall(message)
         for p in self.players:
             p.game = None
+        self.owner.lobby.removeGame(self)
         
     def update(self):
         message = {"action": "update"}

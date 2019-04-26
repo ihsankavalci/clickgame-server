@@ -31,19 +31,16 @@ def client_thread(c):
             elif (message["action"] == "joingame"):
                 p.joinGame(message["gameid"])
             elif (message["action"] == "startgame"):
-                try:
-                    p.game
+                if (p.game != None):
                     p.game.start()
-                except:
-                    p.send("nogame")
-                
+                else:
+                    p.send({"action":"nogame"})    
             elif (message["action"] == "click"):
-                try:
-                    p.game
+                if (p.game != None):
                     if (p.game.isStarted):
-                        p.game.click(message["x"], message["y"])
-                except:
-                    p.send("nogame")
+                        p.game.click(p, message["x"], message["y"])
+                else:
+                    p.send({"action":"nogame"})
             elif (message["action"] == "chat"):
                 p.sendChat(message["msg"])
         
