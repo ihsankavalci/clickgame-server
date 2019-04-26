@@ -18,7 +18,11 @@ class Player():
     def send(self, message):
         if type(message) is dict:
             message = json.dumps(message)
-        self.socket.send(message.encode('ascii'))
+        
+        try:
+            self.socket.send(message.encode('ascii'))
+        except Exception as e:
+            print('ExceptionSend', e) 
 
     def sendChat(self, msg):
         message = {"action": "chat", "msg": "%s -  %s" % (self.nickname, msg)}
