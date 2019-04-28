@@ -19,6 +19,7 @@ class Lobby():
         self.players.remove(player)
         if player.game != None:
             player.game.playerQuit(player)
+            self.sendGamesList()
         self.updatePlayerList()
 
     def removeGame(self, game):
@@ -36,18 +37,18 @@ class Lobby():
         for player in self.players:
             player.send(message)
 
-    def sendGamesList(self, player):
+    def sendGamesList(self, player = None):
         game_ids = []
         for game in self.games:
             game_ids.append(game.id) 
         message = {"action": "gameslist", "games": game_ids}
-        player.send(message)
+        if (player == None):
+            self.sendall(message)
+        else:
+            player.send(message)
 
     def appendGame(self, game):
         self.games.append(game)
         self.gameIndex += 1
-        game_ids = []
-        for game in self.games:
-            game_ids.append(game.id) 
-        message = {"action": "gameslist", "games": game_ids}
-        self.sendall(message)
+        self.sendGamesList()
+        
