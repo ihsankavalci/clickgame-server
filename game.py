@@ -18,7 +18,7 @@ class Game():
         player.send(message)
 
     def createBoxes(self):
-        for i in range(20):
+        for i in range(30):
             self.boxes.append({"x": random.randint(0, 640), "y": random.randint(0, 640)})
 
     def start(self):

@@ -18,7 +18,7 @@ def client_thread(c):
         except Exception as e:
             print('Exception', e) 
             break
-        print(data)
+        print(p.nickname, data)
         messages = []
         for line in data.splitlines():
             messages.append(json.loads(line))
