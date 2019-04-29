@@ -22,6 +22,7 @@ class Player():
         if type(message) is dict:
             message = json.dumps(message)
         
+        message += '\n' # temp for client
         try:
             self.socket.send(message.encode('ascii'))
         except Exception as e:
